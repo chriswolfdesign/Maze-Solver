@@ -8,9 +8,9 @@ Contact: chriswolfdesign@gmail.com
 
 ## Usage instructions
 
-To run the application, use the following command: \
+To run the application, use the following command from the src directory: \
 `python Driver.py <maze_text_file>` \
 where <maze_text_file> is the text file you would like to use
 as your maze.  There are numerous maze files already included for you
 in the mazes directory.  You should provide the relative path to the
-text file from the root directory.
+text file from the src directory.
