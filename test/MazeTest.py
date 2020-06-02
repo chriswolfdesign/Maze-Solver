@@ -4,6 +4,15 @@ from src.model.Maze import Maze
 
 
 class MazeTest(unittest.TestCase):
+    """
+    MazeTest.py
+
+    Unit testing for model.Maze.py
+
+    Author: Chris Wolf
+    Version: 1.0.0 (June 2, 2020)
+    """
+
     def setUp(self):
         self._maze = Maze()
 
