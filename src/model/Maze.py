@@ -17,9 +17,10 @@ class Maze:
 
         :param file_name: the text file we are reading the maze from
         """
-        self._maze = self._generate_maze('../../' + file_name)
+        self._file_name = file_name
+        self._generate_maze()
 
-    def _generate_maze(self, file_name):
+    def _generate_maze(self):
         """
         Reads the given text file and converts it to a 2D array
 
@@ -29,11 +30,11 @@ class Maze:
         """
 
         # if we cannot find the file, give up
-        if not os.path.exists(file_name):
-            print('ERROR -- Could not find {}!'.format(file_name))
+        if not os.path.exists('../../' + self._file_name):
+            print('ERROR -- Could not find {}!'.format(self._file_name))
             exit(1)
 
-        file = open(file_name, 'r')
+        file = open('../../' + self._file_name, 'r')
 
         maze = []
 
@@ -50,7 +51,7 @@ class Maze:
         # close the file
         file.close()
 
-        return maze
+        self._maze = maze
 
     def print_maze(self):
         """
