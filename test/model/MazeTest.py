@@ -50,5 +50,13 @@ class MazeTest(unittest.TestCase):
         maze = Maze('mazes/maze_with_multiple_solutions.txt')
         self.assertEqual(expected_result, maze._maze)
 
+    def testGenerateMazeMazeWithCycle(self):
+        expected_result = [['#', '#', '#', '#', '#'], ['#', '#', 'B', '#', '#'], ['#', '#', ' ', '#', '#'],
+                           ['#', ' ', ' ', ' ', '#'], ['#', ' ', '#', ' ', '#'], ['#', ' ', ' ', ' ', '#'],
+                           ['#', '#', ' ', '#', '#'], ['#', '#', 'A', '#', '#'], ['#', '#', '#', '#', '#']]
+        maze = Maze('mazes/maze_with_cycle.txt')
+        self.assertEqual(expected_result, maze._maze)
+
+
 if __name__ == '__main__':
     unittest.main()
