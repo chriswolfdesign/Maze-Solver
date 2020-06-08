@@ -57,15 +57,26 @@ class Maze:
 
         file = open('../../' + self._file_name, 'r')
 
+        # If there are incorrect number of starting or ending points, quit
+        characters = file.read()
+
+        if characters.count('A') != 1:
+            print('ERROR -- File must have exactly one starting point!')
+            exit(1)
+        if characters.count('B') != 1:
+            print('ERROR -- File must have exactly one goal!')
+            exit(1)
+
+        characters = characters.splitlines()
+
         maze = []
 
         # create the 2D array
-        for line in file.readlines():
+        for line in characters:
             maze_line = []
 
             for letter in line:
-                if not letter == '\n':
-                    maze_line.append(letter)
+                maze_line.append(letter)
 
             maze.append(maze_line)
 
