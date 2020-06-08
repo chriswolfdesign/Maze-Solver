@@ -24,8 +24,6 @@ class Maze:
         """
         Reads the given text file and converts it to a 2D array
 
-        :param file_name: the text file we are reading the maze from
-
         :return: the 2D array representation of the maze
         """
 
@@ -66,9 +64,13 @@ class Maze:
                 print(character, end='')
             print()  # for new line
 
+    def draw_image(self):
+        pass
+
     def go(self):
         """
         Starts the behavior of the maze
         """
 
+        self.draw_image()
         self.print_maze()
