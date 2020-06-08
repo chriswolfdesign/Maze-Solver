@@ -2,6 +2,11 @@ import os
 
 from PIL import Image, ImageDraw
 
+STARTING_POINT = 'A'
+GOAL = 'B'
+WALL = '#'
+BLANK_TILE = ' '
+
 
 class Maze:
     """
@@ -112,11 +117,11 @@ class Maze:
         :param character: the type of file the character is
         :return: a tuple containing the RGB information for the tile
         """
-        if character == 'A':
+        if character == STARTING_POINT:
             return 255, 0, 0  # red
-        elif character == 'B':
+        elif character == GOAL:
             return 0, 255, 0  # green
-        elif character == '#':
+        elif character == WALL:
             return 211, 211, 211  # gray
         else:
             return 0, 0, 0  # black
