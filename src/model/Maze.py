@@ -1,5 +1,7 @@
 import os
 
+from PIL import Image, ImageDraw
+
 
 class Maze:
     """
@@ -19,6 +21,22 @@ class Maze:
         """
         self._file_name = file_name
         self._generate_maze()
+
+    def _get_width(self):
+        """
+        Gets the width of the maze
+
+        :return: the width of the maze
+        """
+        return len(self._maze[0])
+
+    def _get_height(self):
+        """
+        Gets the height of the maze
+
+        :return: the height of the maze
+        """
+        return len(self._maze)
 
     def _generate_maze(self):
         """
@@ -65,7 +83,43 @@ class Maze:
             print()  # for new line
 
     def draw_image(self):
-        pass
+        cell_size = 50
+        cell_border = 2
+
+        image = Image.new('RGBA', (self._get_width() * cell_size, self._get_height() * cell_size),
+                          'black')
+
+        draw = ImageDraw.Draw(image)
+
+        for i in range(self._get_height()):
+            for j in range(self._get_width()):
+                fill = self._get_tile_color(self._maze[i][j])
+
+                draw.rectangle(
+                    ([(j * cell_size + cell_border, i * cell_size + cell_border),
+                      ((j + 1) * cell_size - cell_border, (i + 1) * cell_size - cell_border)]),
+                    fill=fill
+                )
+
+        file_name_without_path = self._file_name.split('/')[-1]
+        image_file_name = '../../maze_images/' + file_name_without_path[:-4] + '.png'
+        image.save(image_file_name)
+
+    def _get_tile_color(self, character):
+        """
+        Determines what color a tile should be based on what the file represents in the maze
+
+        :param character: the type of file the character is
+        :return: a tuple containing the RGB information for the tile
+        """
+        if character == 'A':
+            return 255, 0, 0  # red
+        elif character == 'B':
+            return 0, 255, 0  # green
+        elif character == '#':
+            return 211, 211, 211  # gray
+        else:
+            return 0, 0, 0  # black
 
     def go(self):
         """
