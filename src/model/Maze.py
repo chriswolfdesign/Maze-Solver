@@ -55,7 +55,7 @@ class Maze:
         # if we cannot find the file, give up
         if not os.path.exists('../../' + self._file_name):
             print('ERROR -- Could not find {}!'.format(self._file_name))
-            exit(1)
+            exit()
 
         file = open('../../' + self._file_name, 'r')
 
@@ -94,10 +94,10 @@ class Maze:
         """
         if characters.count('A') != 1:
             print('ERROR -- File must have exactly one starting point!')
-            exit(1)
+            exit()
         if characters.count('B') != 1:
             print('ERROR -- File must have exactly one goal!')
-            exit(1)
+            exit()
 
     def _print_maze(self):
         """
@@ -176,4 +176,4 @@ class Maze:
         """
         if self._maze is None:
             print('No maze has been loaded.')
-            exit(1)
+            exit()
