@@ -49,7 +49,6 @@ class Maze:
 
         :return: the 2D array representation of the maze
         """
-
         # if we cannot find the file, give up
         if not os.path.exists('../../' + self._file_name):
             print('ERROR -- Could not find {}!'.format(self._file_name))
@@ -60,17 +59,20 @@ class Maze:
         # If there are incorrect number of starting or ending points, quit
         characters = file.read()
 
-        if characters.count('A') != 1:
-            print('ERROR -- File must have exactly one starting point!')
-            exit(1)
-        if characters.count('B') != 1:
-            print('ERROR -- File must have exactly one goal!')
-            exit(1)
-
+        # Ensure that the maze is valid
+        self._validate_maze(characters)
         characters = characters.splitlines()
+        self._create_maze_array(characters)
 
+        # close the file
+        file.close()
+
+    def _create_maze_array(self, characters):
+        """
+        Generates the maze based on the characters array passed in
+        :param characters: the array of characters to convert into a maze
+        """
         maze = []
-
         # create the 2D array
         for line in characters:
             maze_line = []
@@ -79,11 +81,20 @@ class Maze:
                 maze_line.append(letter)
 
             maze.append(maze_line)
-
-        # close the file
-        file.close()
-
         self._maze = maze
+
+    def _validate_maze(self, characters):
+        """
+        Checks that the characters represents a valid maze
+        If it does not, the user is informed and the program exits
+        :param characters: the array of characters to check are a valid maze
+        """
+        if characters.count('A') != 1:
+            print('ERROR -- File must have exactly one starting point!')
+            exit(1)
+        if characters.count('B') != 1:
+            print('ERROR -- File must have exactly one goal!')
+            exit(1)
 
     def print_maze(self):
         """
@@ -99,12 +110,14 @@ class Maze:
             print()  # for new line
 
     def draw_image(self):
+        """
+        Draws the maze to a png file to ease of viewing
+        """
         cell_size = 50
         cell_border = 2
 
         image = Image.new('RGBA', (self._get_width() * cell_size, self._get_height() * cell_size),
                           'black')
-
         draw = ImageDraw.Draw(image)
 
         for i in range(self._get_height()):
@@ -141,6 +154,5 @@ class Maze:
         """
         Starts the behavior of the maze
         """
-
         self.draw_image()
         self.print_maze()
