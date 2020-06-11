@@ -1,6 +1,6 @@
 import unittest
 
-from src.model.Maze import Maze
+from Maze import Maze
 
 
 class MazeTest(unittest.TestCase):
