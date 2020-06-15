@@ -25,6 +25,7 @@ class Maze:
         """
         self._file_name = file_name
         self._generate_maze()
+        self._quit_if_maze_not_complete_rectangle()
 
     def _get_width(self):
         """
@@ -95,6 +96,85 @@ class Maze:
 
             maze.append(maze_line)
         self._maze = maze
+
+    def _quit_if_maze_not_complete_rectangle(self):
+        """
+        Exits the program if the maze is not a complete rectangle with a perimeter
+        of uninterrupted walls
+        """
+        if not self._is_maze_complete_rectangle():
+            print('ERROR -- Maze must be a complete rectangle')
+            exit()
+
+    def _is_maze_complete_rectangle(self):
+        """
+        Determines whether or not the maze is a complete rectangle with a perimeter
+        of uninterrupted walls
+        :return: True if the above criteria is met, False otherwise
+        """
+        if self._get_height() == 0 or self._get_width() == 0:
+            return False
+        return self._are_all_maze_rows_equal_length() and not self._is_maze_complete_rectangle()
+
+    def _does_maze_perimeter_have_gaps(self):
+        """
+        Determines if any of the perimeter tiles is not a #
+        :return: True if the above criteria is met, False otherwise
+        """
+        return self._does_maze_left_wall_have_gaps() or self._does_maze_right_wall_have_gaps() or \
+               self._does_maze_top_wall_have_gaps() or self._does_maze_bottom_wall_have_gaps()
+
+    def _does_maze_left_wall_have_gaps(self):
+        """
+        Determines if the left wall of the maze has any tile that is not a #
+        :return: True if the above criteria is met, False otherwise
+        """
+        for i in range(self._get_height()):
+            if self._maze[i][0] is not '#':
+                return True
+        return False
+
+    def _does_maze_right_wall_have_gaps(self):
+        """
+        Determines if the right wall of the maze has any tile that is not a #
+        :return: True if above criteria is met, False otherwise
+        """
+        for i in range(self._get_height()):
+            if self._maze[i][-1] is not '#':
+                return True
+        return False
+
+    def _does_maze_top_wall_have_gaps(self):
+        """
+        Determines if the top wall of the maze has any character that is not a #
+        :return: True if above criteria is met, False otherwise
+        """
+        for i in range(self._get_width()):
+            if self._maze[0][i] is not '#':
+                return True
+        return False
+
+    def _does_maze_bottom_wall_have_gaps(self):
+        """
+        Determines if the bottom wall of the maze has any character that is not a #
+        :return: True if above criteria is met, False otherwise
+        """
+        for i in range(self._get_width()):
+            if self._maze[-1][i] is not '#':
+                return True
+        return False
+
+    def _are_all_maze_rows_equal_length(self):
+        """
+        Determines if all of the rows in the maze are the same length
+        :return: True if the above criteria is met, False otherwise
+        """
+        first_row_length = len(self._maze[0])
+
+        for i in range(self._get_height()):
+            if first_row_length != len(self._maze[i]):
+                return False
+        return True
 
     def go(self):
         """
