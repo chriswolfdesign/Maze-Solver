@@ -31,6 +31,8 @@ class Maze:
         Gets the width of the maze
         :return: the width of the maze
         """
+        if self._get_height() == 0:
+            return 0
         return len(self._maze[0])
 
     def _get_height(self):

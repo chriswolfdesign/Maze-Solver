@@ -52,6 +52,50 @@ class MazeTest(unittest.TestCase):
         maze = Maze('../../mazes/very_short_maze.txt')
         self.assertEqual(5, maze._get_height())
 
+    # Maze._get_width() tests
+    def testGetWidthEmptyMazeShouldBeZero(self):
+        maze = Maze('../../mazes/linear_maze.txt')
+        maze._maze = None
+        self.assertEqual(0, maze._get_width())
+
+    def testGetWidthFirstRowEmptyShouldBeZero(self):
+        maze = Maze('../../mazes/linear_maze.txt')
+        maze._maze = []
+        self.assertEqual(0, maze._get_width())
+
+    def testGetWidthFromOneByOneShouldBeOne(self):
+        maze = Maze('../../mazes/linear_maze.txt')
+        maze._maze = [['#']]
+        self.assertEqual(1, maze._get_width())
+
+    def testGetWidthLinearMazeShouldBeThree(self):
+        maze = Maze('../../mazes/linear_maze.txt')
+        self.assertEqual(3, maze._get_width())
+
+    def testGetWidthMazeWithCycleShouldBeFive(self):
+        maze = Maze('../../mazes/maze_with_cycle.txt')
+        self.assertEqual(5, maze._get_width())
+
+    def testGetWidthMazeWithDeadEndShouldBeFive(self):
+        maze = Maze('../../mazes/maze_with_dead_end.txt')
+        self.assertEqual(5, maze._get_width())
+
+    def testGetWidthMazeWithMultipleSolutionsShouldBeFive(self):
+        maze = Maze('../../mazes/maze_with_multiple_solutions.txt')
+        self.assertEqual(5, maze._get_width())
+
+    def testGetWidthMazeWithTurnShouldBeFive(self):
+        maze = Maze('../../mazes/maze_with_turn.txt')
+        self.assertEqual(5, maze._get_width())
+
+    def testGetWidthShortestPossibleMazeShouldBeThree(self):
+        maze = Maze('../../mazes/shortest_possible_maze.txt')
+        self.assertEqual(3, maze._get_width())
+
+    def testGetWidthVeryShortMazeShouldBeThree(self):
+        maze = Maze('../../mazes/very_short_maze.txt')
+        self.assertEqual(3, maze._get_width())
+
     # Maze._generate_maze() tests
     def testGenerateMazeShortestPossibleMaze(self):
         expected_result = [['#', '#', '#'], ['#', 'B', '#'], ['#', 'A', '#'], ['#', '#', '#']]
