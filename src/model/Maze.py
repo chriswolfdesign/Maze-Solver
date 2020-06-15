@@ -38,6 +38,8 @@ class Maze:
         Gets the height of the maze
         :return: the height of the maze
         """
+        if self._maze is None:
+            return 0
         return len(self._maze)
 
     def _generate_maze(self):
