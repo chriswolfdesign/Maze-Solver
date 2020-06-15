@@ -1,6 +1,6 @@
 import sys
 
-from model.Maze import Maze
+from src.model.Maze import Maze
 
 '''
 Driver.py

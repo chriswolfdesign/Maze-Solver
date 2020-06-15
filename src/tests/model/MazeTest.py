@@ -1,6 +1,6 @@
 import unittest
 
-from Maze import Maze
+from src.model.Maze import Maze
 
 
 class MazeTest(unittest.TestCase):
@@ -15,46 +15,46 @@ class MazeTest(unittest.TestCase):
 
     def testGenerateMazeShortestPossibleMaze(self):
         expected_result = [['#', '#', '#'], ['#', 'B', '#'], ['#', 'A', '#'], ['#', '#', '#']]
-        maze = Maze('mazes/shortest_possible_maze.txt')
+        maze = Maze('../../mazes/shortest_possible_maze.txt')
         self.assertEqual(expected_result, maze._maze)
 
     def testGenerateMazeVeryShortMaze(self):
         expected_result = [['#', '#', '#'], ['#', 'B', '#'], ['#', ' ', '#'], ['#', 'A', '#'], ['#', '#', '#']]
-        maze = Maze('mazes/very_short_maze.txt')
+        maze = Maze('../../mazes/very_short_maze.txt')
         self.assertEqual(expected_result, maze._maze)
 
     def testGenerateMazeLinearMaze(self):
         expected_result = [['#', '#', '#'], ['#', 'B', '#'], ['#', ' ', '#'], ['#', ' ', '#'], ['#', ' ', '#'],
                            ['#', 'A', '#'], ['#', '#', '#']]
-        maze = Maze('mazes/linear_maze.txt')
+        maze = Maze('../../mazes/linear_maze.txt')
         self.assertEqual(expected_result, maze._maze)
 
     def testGenerateMazeMazeWithTurn(self):
         expected_result = [['#', '#', '#', '#', '#'], ['#', '#', '#', 'B', '#'], ['#', '#', '#', ' ', '#'],
                            ['#', '#', '#', ' ', '#'], ['#', ' ', ' ', ' ', '#'], ['#', ' ', '#', '#', '#'],
                            ['#', ' ', '#', '#', '#'], ['#', 'A', '#', '#', '#'], ['#', '#', '#', '#', '#']]
-        maze = Maze('mazes/maze_with_turn.txt')
+        maze = Maze('../../mazes/maze_with_turn.txt')
         self.assertEqual(expected_result, maze._maze)
 
     def testGenerateMazeMazeWithDeadEnd(self):
         expected_result = [['#', '#', '#', '#', '#'], ['#', ' ', '#', 'B', '#'], ['#', ' ', '#', ' ', '#'],
                            ['#', ' ', ' ', ' ', '#'], ['#', '#', ' ', '#', '#'], ['#', '#', ' ', '#', '#'],
                            ['#', '#', 'A', '#', '#'], ['#', '#', '#', '#', '#']]
-        maze = Maze('mazes/maze_with_dead_end.txt')
+        maze = Maze('../../mazes/maze_with_dead_end.txt')
         self.assertEqual(expected_result, maze._maze)
 
     def testGenerateMazeMazeWithMultipleSolutions(self):
         expected_result = [['#', '#', '#', '#', '#'], ['#', ' ', ' ', ' ', '#'], ['#', ' ', '#', 'B', '#'],
                            ['#', ' ', '#', ' ', '#'], ['#', ' ', ' ', ' ', '#'], ['#', '#', ' ', '#', '#'],
                            ['#', '#', 'A', '#', '#'], ['#', '#', '#', '#', '#']]
-        maze = Maze('mazes/maze_with_multiple_solutions.txt')
+        maze = Maze('../../mazes/maze_with_multiple_solutions.txt')
         self.assertEqual(expected_result, maze._maze)
 
     def testGenerateMazeMazeWithCycle(self):
         expected_result = [['#', '#', '#', '#', '#'], ['#', '#', 'B', '#', '#'], ['#', '#', ' ', '#', '#'],
                            ['#', ' ', ' ', ' ', '#'], ['#', ' ', '#', ' ', '#'], ['#', ' ', ' ', ' ', '#'],
                            ['#', '#', ' ', '#', '#'], ['#', '#', 'A', '#', '#'], ['#', '#', '#', '#', '#']]
-        maze = Maze('mazes/maze_with_cycle.txt')
+        maze = Maze('../../mazes/maze_with_cycle.txt')
         self.assertEqual(expected_result, maze._maze)
 
 
