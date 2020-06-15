@@ -40,13 +40,6 @@ class Maze:
         """
         return len(self._maze)
 
-    def go(self):
-        """
-        Starts the behavior of the maze
-        """
-        self._draw_image()
-        self._print_maze()
-
     def _generate_maze(self):
         """
         Reads the given text file and converts it to a 2D array
@@ -69,6 +62,19 @@ class Maze:
         # close the file
         file.close()
 
+    def _validate_maze(self, characters):
+        """
+        Checks that the characters represents a valid maze
+        If it does not, the user is informed and the program exits
+        :param characters: the array of characters to check are a valid maze
+        """
+        if characters.count('A') != 1:
+            print('ERROR -- File must have exactly one starting point!')
+            exit()
+        if characters.count('B') != 1:
+            print('ERROR -- File must have exactly one goal!')
+            exit()
+
     def _create_maze_array(self, characters):
         """
         Generates the maze based on the characters array passed in
@@ -86,18 +92,12 @@ class Maze:
             maze.append(maze_line)
         self._maze = maze
 
-    def _validate_maze(self, characters):
+    def go(self):
         """
-        Checks that the characters represents a valid maze
-        If it does not, the user is informed and the program exits
-        :param characters: the array of characters to check are a valid maze
+        Starts the behavior of the maze
         """
-        if characters.count('A') != 1:
-            print('ERROR -- File must have exactly one starting point!')
-            exit()
-        if characters.count('B') != 1:
-            print('ERROR -- File must have exactly one goal!')
-            exit()
+        self._draw_image()
+        self._print_maze()
 
     def _print_maze(self):
         """
@@ -125,6 +125,14 @@ class Maze:
 
         self._generate_image_from_characters(cell_border, cell_size, draw)
         self._save_image_to_file(image)
+
+    def _quit_if_no_valid_maze(self):
+        """
+        If there is no appropriate maze value, exit the program
+        """
+        if self._maze is None:
+            print('No maze has been loaded.')
+            exit()
 
     def _save_image_to_file(self, image):
         """
@@ -169,11 +177,3 @@ class Maze:
             return 211, 211, 211  # gray
         else:
             return 0, 0, 0  # black
-
-    def _quit_if_no_valid_maze(self):
-        """
-        If there is no appropriate maze value, exit the program
-        """
-        if self._maze is None:
-            print('No maze has been loaded.')
-            exit()
