@@ -51,11 +51,11 @@ class Maze:
         :return: the 2D array representation of the maze
         """
         # if we cannot find the file, give up
-        if not os.path.exists('../' + self._file_name):
+        if not os.path.exists(self._file_name):
             print('ERROR -- Could not find {}!'.format(self._file_name))
             exit()
 
-        file = open('../' + self._file_name, 'r')
+        file = open(self._file_name, 'r')
 
         # If there are incorrect number of starting or ending points, quit
         characters = file.read()
@@ -114,7 +114,7 @@ class Maze:
         """
         if self._get_height() == 0 or self._get_width() == 0:
             return False
-        return self._are_all_maze_rows_equal_length() and not self._is_maze_complete_rectangle()
+        return self._are_all_maze_rows_equal_length() and not self._does_maze_perimeter_have_gaps()
 
     def _does_maze_perimeter_have_gaps(self):
         """
@@ -224,7 +224,7 @@ class Maze:
         :param image: the image that should be saved
         """
         file_name_without_path = self._file_name.split('/')[-1]
-        image_file_name = '../maze_images/' + file_name_without_path[:-4] + '.png'
+        image_file_name = 'maze_images/' + file_name_without_path[:-4] + '.png'
         image.save(image_file_name)
 
     def _generate_image_from_characters(self, cell_border, cell_size, draw):
