@@ -467,6 +467,19 @@ class MazeTest(unittest.TestCase):
         self.assertEqual([], maze._points_explored)
         self.assertEqual(0, len(maze._points_explored))
 
+    def testAddPointAddWallTileShouldNotBeAdded(self):
+        maze = Maze('../mazes/linear_maze.txt')
+        self.assertNotEqual(None, maze._frontier)
+        self.assertEqual([], maze._frontier._points)
+        self.assertEqual(0, len(maze._frontier._points))
+        self.assertEqual([], maze._points_explored)
+        self.assertEqual(0, len(maze._points_explored))
+        maze._add_point(Point(0, 0))
+        self.assertEqual([], maze._frontier._points)
+        self.assertEqual(0, len(maze._frontier._points))
+        self.assertEqual([], maze._points_explored)
+        self.assertEqual(0, len(maze._points_explored))
+
     def testAddPointAddingValidPointShouldBeAdded(self):
         maze = Maze('../mazes/linear_maze.txt')
         self.assertEqual([], maze._frontier._points)
