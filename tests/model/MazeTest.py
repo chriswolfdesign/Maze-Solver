@@ -421,6 +421,30 @@ class MazeTest(unittest.TestCase):
         maze = Maze('../mazes/very_short_maze.txt')
         self.assertEqual(Point(1, 3), maze._find_starting_point())
 
+    # Maze._find_goal() tests
+    def testFindGoalLinearMazeShouldBeOneOne(self):
+        maze = Maze('../mazes/linear_maze.txt')
+        self.assertEqual(Point(1, 1), maze._find_goal())
+
+    def testFindGoalMazeWithCycleShouldBeTwoOne(self):
+        maze = Maze('../mazes/maze_with_cycle.txt')
+        self.assertEqual(Point(2, 1), maze._find_goal())
+
+    def testFindGoalMazeWithDeadEndShouldBeThreeOne(self):
+        maze = Maze('../mazes/maze_with_dead_end.txt')
+        self.assertEqual(Point(3, 1), maze._find_goal())
+
+    def testFindGoalMazeWithTurnShouldBeThreeOne(self):
+        maze = Maze('../mazes/maze_with_turn.txt')
+        self.assertEqual(Point(3, 1), maze._find_goal())
+
+    def testFindGoalMazeShortestPossibleMazeShouldBeOneOne(self):
+        maze = Maze('../mazes/shortest_possible_maze.txt')
+        self.assertEqual(Point(1, 1), maze._find_goal())
+
+    def testFindGoalVeryShortMazeShouldBeOneOne(self):
+        maze = Maze('../mazes/very_short_maze.txt')
+        self.assertEqual(Point(1, 1), maze._find_goal())
 
 if __name__ == '__main__':
     unittest.main()

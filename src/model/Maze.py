@@ -29,6 +29,7 @@ class Maze:
         self._generate_maze()
         self._quit_if_maze_not_complete_rectangle()
         self._starting_point = self._find_starting_point()
+        self._goal = self._find_goal()
 
     def _get_width(self):
         """
@@ -56,6 +57,17 @@ class Maze:
         for y in range(len(self._maze)):
             for x in range(len(self._maze[y])):
                 if self._maze[y][x] == STARTING_POINT:
+                    return Point(x, y)
+        return None
+
+    def _find_goal(self):
+        """
+        Determines where the goal of the maze is
+        :return: a Point representing the maze's goal
+        """
+        for y in range(len(self._maze)):
+            for x in range(len(self._maze[y])):
+                if self._maze[y][x] == GOAL:
                     return Point(x, y)
         return None
 
