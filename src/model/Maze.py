@@ -2,6 +2,8 @@ import os
 
 from PIL import Image, ImageDraw
 
+from src.model.Point import Point
+
 STARTING_POINT = 'A'
 GOAL = 'B'
 WALL = '#'
@@ -26,6 +28,7 @@ class Maze:
         self._file_name = file_name
         self._generate_maze()
         self._quit_if_maze_not_complete_rectangle()
+        self._starting_point = self._find_starting_point()
 
     def _get_width(self):
         """
@@ -44,6 +47,17 @@ class Maze:
         if self._maze is None:
             return 0
         return len(self._maze)
+
+    def _find_starting_point(self):
+        """
+        Determines where the starting point of this maze is
+        :return: a Point representing the maze's starting point
+        """
+        for y in range(len(self._maze)):
+            for x in range(len(self._maze[y])):
+                if self._maze[y][x] == STARTING_POINT:
+                    return Point(x, y)
+        return None
 
     def _generate_maze(self):
         """
