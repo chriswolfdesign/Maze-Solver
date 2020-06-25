@@ -3,7 +3,6 @@ import os
 from PIL import Image, ImageDraw
 
 from src.model.Point import Point
-from src.model.frontiers.Frontier import Frontier
 from src.model.frontiers.QueueFrontier import QueueFrontier
 
 STARTING_POINT = 'A'
@@ -87,6 +86,7 @@ class Maze:
             print('ERROR -- Could not find {}!'.format(self._file_name))
             exit()
 
+        # open the file
         file = open('../' + self._file_name, 'r')
 
         # If there are incorrect number of starting or ending points, quit
@@ -260,6 +260,10 @@ class Maze:
             exit()
 
     def _add_point(self, point):
+        """
+        Adds a point to the frontier and the explored_tiles list, if it's not already there
+        :param point: the point to be added
+        """
         # if point is None, give up
         if point is None:
             return
@@ -310,6 +314,10 @@ class Maze:
         self._update_path_tiles(current_point)
 
     def _update_path_tiles(self, point):
+        """
+        Updates the points that are part of the path for the user to see
+        :param point: the last point in the path (should be GOAL)
+        """
         previous_point = point.get_parent()
 
         while previous_point is not None:
