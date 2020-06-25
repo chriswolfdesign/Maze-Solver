@@ -14,6 +14,13 @@ class MazeTest(unittest.TestCase):
     Version: 1.0.0 (June 2, 2020)
     """
 
+    # Maze.__init__() tests
+    def testMazeInitShouldHaveFrontierAndPointsExploredShouldBeEmpty(self):
+        maze = Maze('../mazes/linear_maze.txt')
+        self.assertNotEqual(None, maze._frontier)
+        self.assertEqual([], maze._points_explored)
+        self.assertEqual(0, len(maze._points_explored))
+
     # Maze._get_height() tests
     def testGetHeightMazeIsNone(self):
         maze = Maze('../mazes/linear_maze.txt')
@@ -445,6 +452,59 @@ class MazeTest(unittest.TestCase):
     def testFindGoalVeryShortMazeShouldBeOneOne(self):
         maze = Maze('../mazes/very_short_maze.txt')
         self.assertEqual(Point(1, 1), maze._find_goal())
+
+    # Maze._add_point() tests
+    def testAddPointAddingNoneShouldNotBeAdded(self):
+        maze = Maze('../mazes/linear_maze.txt')
+        self.assertNotEqual(None, maze._frontier)
+        self.assertEqual([], maze._frontier._points)
+        self.assertEqual(0, len(maze._frontier._points))
+        self.assertEqual([], maze._points_explored)
+        self.assertEqual(0, len(maze._points_explored))
+        maze._add_point(None)
+        self.assertEqual([], maze._frontier._points)
+        self.assertEqual(0, len(maze._frontier._points))
+        self.assertEqual([], maze._points_explored)
+        self.assertEqual(0, len(maze._points_explored))
+
+    def testAddPointAddingValidPointShouldBeAdded(self):
+        maze = Maze('../mazes/linear_maze.txt')
+        self.assertEqual([], maze._frontier._points)
+        self.assertEqual(0, len(maze._frontier._points))
+        self.assertEqual([], maze._points_explored)
+        self.assertEqual(0, len(maze._points_explored))
+        maze._add_point(Point(1, 3))
+        self.assertEqual([Point(1, 3)], maze._frontier._points)
+        self.assertEqual(1, len(maze._frontier._points))
+        self.assertEqual([Point(1, 3)], maze._points_explored)
+        self.assertEqual([Point(1, 3)], maze._points_explored)
+
+    def testAddPointAddingPointAlreadyThereShouldNotBeAdded(self):
+        maze = Maze('../mazes/linear_maze.txt')
+        maze._add_point(Point(1, 3))
+        self.assertEqual([Point(1, 3)], maze._frontier._points)
+        self.assertEqual(1, len(maze._frontier._points))
+        self.assertEqual([Point(1, 3)], maze._points_explored)
+        self.assertEqual([Point(1, 3)], maze._points_explored)
+        maze._add_point(Point(1, 3))
+        self.assertEqual([Point(1, 3)], maze._frontier._points)
+        self.assertEqual(1, len(maze._frontier._points))
+        self.assertEqual([Point(1, 3)], maze._points_explored)
+        self.assertEqual([Point(1, 3)], maze._points_explored)
+
+    def testAddPointAddingValidPointToNonEmptyListShouldBeAdded(self):
+        maze = Maze('../mazes/linear_maze.txt')
+        maze._add_point(Point(1, 3))
+        self.assertEqual([Point(1, 3)], maze._frontier._points)
+        self.assertEqual(1, len(maze._frontier._points))
+        self.assertEqual([Point(1, 3)], maze._points_explored)
+        self.assertEqual([Point(1, 3)], maze._points_explored)
+        maze._add_point(Point(1, 4))
+        self.assertEqual([Point(1, 3), Point(1, 4)], maze._frontier._points)
+        self.assertEqual(2, len(maze._frontier._points))
+        self.assertEqual([Point(1, 3), Point(1, 4)], maze._points_explored)
+        self.assertEqual(2, len(maze._points_explored))
+
 
 if __name__ == '__main__':
     unittest.main()
