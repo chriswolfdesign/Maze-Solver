@@ -3,6 +3,7 @@ import os
 from PIL import Image, ImageDraw
 
 from src.model.Point import Point
+from src.model.frontiers.Frontier import Frontier
 
 STARTING_POINT = 'A'
 GOAL = 'B'
@@ -30,6 +31,8 @@ class Maze:
         self._quit_if_maze_not_complete_rectangle()
         self._starting_point = self._find_starting_point()
         self._goal = self._find_goal()
+        self._frontier = Frontier()
+        self._points_explored = []
 
     def _get_width(self):
         """
@@ -243,6 +246,15 @@ class Maze:
         if self._maze is None:
             print('No maze has been loaded.')
             exit()
+
+    def _add_point(self, point):
+        # if point is None, give up
+        if point is None:
+            return
+
+        if self._maze[point.get_y()][point.get_x()] is not '#' and point not in self._points_explored:
+            self._frontier.add_point(point)
+            self._points_explored.append(point)
 
     def _save_image_to_file(self, image):
         """
