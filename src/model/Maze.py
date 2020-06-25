@@ -354,7 +354,7 @@ class Maze:
         :return: a tuple containing the RGB information for the tile
         """
         if character == STARTING_POINT:
-            return 255, 0, 0  # red
+            return 255, 165, 0  # orange
         elif character == GOAL:
             return 0, 255, 0  # green
         elif character == WALL:
@@ -362,6 +362,6 @@ class Maze:
         elif character == PATH_TILE:
             return 0, 0, 255  # blue
         elif character == EXPLORED_TILE:
-            return 255, 165, 0  # orange
+            return 255, 0, 0  # red
         else:
             return 0, 0, 0  # black
