@@ -303,7 +303,7 @@ class Maze:
             self._number_explored_tiles = self._number_explored_tiles + 1
 
         # if the maze was not solved, inform the user and quit
-        if self._maze[current_point.get_y()][current_point.get_x()] is not GOAL:
+        if current_point is None:
             print('Maze could not be solved!')
             exit()
 
