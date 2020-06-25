@@ -4,7 +4,16 @@ from src.model.Point import Point
 
 
 class PointTest(unittest.TestCase):
-    # get_x tests
+    """
+    PointTest.py
+
+    Unit testing for Point.py
+
+    Author: Chris Wolf
+    Version: 1.0.0 (June 25, 2020)
+    """
+
+    # Point.get_x() tests
     def testGetXIsFive(self):
         point = Point(5, 5)
         self.assertEqual(5, point.get_x())
@@ -13,7 +22,7 @@ class PointTest(unittest.TestCase):
         point = Point(0, 5)
         self.assertEqual(0, point.get_x())
 
-    # get_y tests
+    # Point.get_y() tests
     def testGetYIsFour(self):
         point = Point(5, 4)
         self.assertEqual(4, point.get_y())
@@ -22,7 +31,7 @@ class PointTest(unittest.TestCase):
         point = Point(0, 0)
         self.assertEqual(0, point.get_y())
 
-    # equals tests
+    # Point.__eq__() tests
     def testEqualsPointsAreSame(self):
         point_a = Point(3, 4)
         point_b = Point(3, 4)
@@ -51,7 +60,7 @@ class PointTest(unittest.TestCase):
         point = Point(3, 4)
         self.assertNotEqual(point, None)
 
-    # get_parent tests
+    # Point.get_parent() tests
     def testGetParentNoParent(self):
         point = Point(3, 4)
         self.assertEqual(None, point.get_parent())
@@ -60,7 +69,6 @@ class PointTest(unittest.TestCase):
         point_a = Point(3, 4)
         point_b = Point(5, 6, point_a)
         self.assertEqual(point_a, point_b.get_parent())
-
 
 
 if __name__ == '__main__':
