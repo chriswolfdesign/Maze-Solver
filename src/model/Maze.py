@@ -4,6 +4,7 @@ from PIL import Image, ImageDraw
 
 from src.model.Point import Point
 from src.model.frontiers.QueueFrontier import QueueFrontier
+from src.model.frontiers.StackFrontier import StackFrontier
 
 STARTING_POINT = 'A'
 GOAL = 'B'
@@ -33,7 +34,7 @@ class Maze:
         self._quit_if_maze_not_complete_rectangle()
         self._starting_point = self._find_starting_point()
         self._goal = self._find_goal()
-        self._frontier = QueueFrontier()
+        self._frontier = StackFrontier()
         self._points_explored = []
 
     def _get_width(self):
