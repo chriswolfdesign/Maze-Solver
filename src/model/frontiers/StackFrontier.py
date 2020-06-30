@@ -19,6 +19,10 @@ class StackFrontier(Frontier):
         super().__init__()
 
     def remove_point(self):
+        """
+        Gets the last point in the last
+        :return: the last point in the list, or None if the list is empty
+        """
         if len(self._points) == 0:
             return None
         else:
