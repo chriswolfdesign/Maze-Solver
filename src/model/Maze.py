@@ -2,8 +2,10 @@ import os
 
 from PIL import Image, ImageDraw
 
+from src.factories.FrontierFactory import generate_frontier
 from src.model.Point import Point
 from src.model.frontiers.QueueFrontier import QueueFrontier
+from src.model.frontiers.StackFrontier import StackFrontier
 
 STARTING_POINT = 'A'
 GOAL = 'B'
@@ -23,17 +25,18 @@ class Maze:
     Version: 1.0.0 (June 2, 2020)
     """
 
-    def __init__(self, file_name):
+    def __init__(self, file_name, frontier_type):
         """
         Constructor
         :param file_name: the text file we are reading the maze from
+        :param frontier_type: a string representation of the type of frontier the user wants
         """
         self._file_name = file_name
         self._generate_maze()
         self._quit_if_maze_not_complete_rectangle()
         self._starting_point = self._find_starting_point()
         self._goal = self._find_goal()
-        self._frontier = QueueFrontier()
+        self._frontier = generate_frontier(frontier_type)
         self._points_explored = []
 
     def _get_width(self):
