@@ -577,6 +577,15 @@ class MazeTest(unittest.TestCase):
         self.assertEqual(expected_maze, maze._maze)
         self.assertEqual(9, maze._number_explored_tiles)
 
+    def testSolveMazeQueueMazeWithDeadEndOnRightShouldHaveNineExploredTiles(self):
+        maze = Maze('../mazes/maze_with_dead_end_on_right.txt', '-q')
+        maze._solve_maze()
+        expected_maze = [['#', '#', '#', '#', '#'], ['#', 'B', '#', ' ', '#'], ['#', 'O', '#', 'X', '#'],
+                         ['#', 'O', 'O', 'X', '#'], ['#', '#', 'O', '#', '#'], ['#', '#', 'O', '#', '#'],
+                         ['#', '#', 'A', '#', '#'], ['#', '#', '#', '#', '#']]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(9, maze._number_explored_tiles)
+
     # Maze._solve_maze() tests (stack)
     def testSolveMazeStackMazeWithCycleShouldHaveNineExploredTiles(self):
         maze = Maze('../mazes/maze_with_cycle.txt', '-s')
@@ -627,7 +636,6 @@ class MazeTest(unittest.TestCase):
         self.assertEqual(expected_maze, maze._maze)
         self.assertEqual(9, maze._number_explored_tiles)
 
-
     def testSolveMazeStackMazeWithMultipleSolutionsShouldHaveSixExploredTiles(self):
         maze = Maze('../mazes/maze_with_multiple_solutions.txt', '-s')
         maze._solve_maze()
@@ -636,6 +644,15 @@ class MazeTest(unittest.TestCase):
                          ['#', '#', 'A', '#', '#'], ['#', '#', '#', '#', '#']]
         self.assertEqual(expected_maze, maze._maze)
         self.assertEqual(6, maze._number_explored_tiles)
+
+    def testSolveMazeStackMazeWithDeadEndOnRightShouldHaveTenExploredTiles(self):
+        maze = Maze('../mazes/maze_with_dead_end_on_right.txt', '-s')
+        maze._solve_maze()
+        expected_maze = [['#', '#', '#', '#', '#'], ['#', 'B', '#', 'X', '#'], ['#', 'O', '#', 'X', '#'],
+                         ['#', 'O', 'O', 'X', '#'], ['#', '#', 'O', '#', '#'], ['#', '#', 'O', '#', '#'],
+                         ['#', '#', 'A', '#', '#'], ['#', '#', '#', '#', '#']]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(10, maze._number_explored_tiles)
 
 
 if __name__ == '__main__':
