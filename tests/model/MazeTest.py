@@ -586,6 +586,15 @@ class MazeTest(unittest.TestCase):
         self.assertEqual(expected_maze, maze._maze)
         self.assertEqual(9, maze._number_explored_tiles)
 
+    def testSolveMazeQueueMazeWithMultipleSolutionsGoalOnLeftShouldHaveEightExploredTiles(self):
+        maze = Maze('../mazes/maze_with_multiple_solutions_goal_on_left.txt', '-q')
+        maze._solve_maze()
+        expected_maze = [['#', '#', '#', '#', '#'], ['#', ' ', ' ', ' ', '#'], ['#', 'B', '#', ' ', '#'],
+                         ['#', 'O', '#', 'X', '#'], ['#', 'O', 'O', 'X', '#'], ['#', '#', 'O', '#', '#'],
+                         ['#', '#', 'A', '#', '#'], ['#', '#', '#', '#', '#']]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(8, maze._number_explored_tiles)
+
     # Maze._solve_maze() tests (stack)
     def testSolveMazeStackMazeWithCycleShouldHaveNineExploredTiles(self):
         maze = Maze('../mazes/maze_with_cycle.txt', '-s')
@@ -650,6 +659,15 @@ class MazeTest(unittest.TestCase):
         maze._solve_maze()
         expected_maze = [['#', '#', '#', '#', '#'], ['#', 'B', '#', 'X', '#'], ['#', 'O', '#', 'X', '#'],
                          ['#', 'O', 'O', 'X', '#'], ['#', '#', 'O', '#', '#'], ['#', '#', 'O', '#', '#'],
+                         ['#', '#', 'A', '#', '#'], ['#', '#', '#', '#', '#']]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(10, maze._number_explored_tiles)
+
+    def testSolveMazeStackMazeWithMultipleSolutionsGoalOnLeftShouldHaveTenExploredTiles(self):
+        maze = Maze('../mazes/maze_with_multiple_solutions_goal_on_left.txt', '-s')
+        maze._solve_maze()
+        expected_maze = [['#', '#', '#', '#', '#'], ['#', 'O', 'O', 'O', '#'], ['#', 'B', '#', 'O', '#'],
+                         ['#', ' ', '#', 'O', '#'], ['#', ' ', 'O', 'O', '#'], ['#', '#', 'O', '#', '#'],
                          ['#', '#', 'A', '#', '#'], ['#', '#', '#', '#', '#']]
         self.assertEqual(expected_maze, maze._maze)
         self.assertEqual(10, maze._number_explored_tiles)
