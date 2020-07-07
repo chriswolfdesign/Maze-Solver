@@ -4,6 +4,7 @@ from MazeSolver.model.maze import Maze
 from MazeSolver.model.point import Point
 from MazeSolver.model.frontiers.queue_frontier import QueueFrontier
 from MazeSolver.model.frontiers.stack_frontier import StackFrontier
+from MazeSolver.model.frontiers.greedy_frontier import GreedyFrontier
 
 
 class MazeTest(unittest.TestCase):
@@ -674,6 +675,144 @@ class MazeTest(unittest.TestCase):
         self.assertEqual(expected_maze, maze._maze)
         self.assertEqual(10, maze._number_explored_tiles)
 
+    # Maze.solve_maze tests (greedy)
+    def testSolveMazeGreedyLinearMazeShouldHaveFourExploredTiles(self):
+        maze = Maze('mazes/linear_maze.txt', GreedyFrontier())
+        maze._solve_maze()
+        expected_maze = [
+            ['#', '#', '#'],
+            ['#', 'B', '#'],
+            ['#', 'O', '#'],
+            ['#', 'O', '#'],
+            ['#', 'O', '#'],
+            ['#', 'A', '#'],
+            ['#', '#', '#']
+        ]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(4, maze._number_explored_tiles)
+
+    def testSolveMazeGreedyMazeWithCycleShouldHaveEightExploredTiles(self):
+        maze = Maze('mazes/maze_with_cycle.txt', GreedyFrontier())
+        maze._solve_maze()
+        expected_maze = [
+            ['#', '#', '#', '#', '#'],
+            ['#', '#', 'B', '#', '#'],
+            ['#', '#', 'O', '#', '#'],
+            ['#', 'O', 'O', ' ', '#'],
+            ['#', 'O', '#', ' ', '#'],
+            ['#', 'O', 'O', ' ', '#'],
+            ['#', '#', 'O', '#', '#'],
+            ['#', '#', 'A', '#', '#'],
+            ['#', '#', '#', '#', '#']
+        ]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(8, maze._number_explored_tiles)
+
+    def testSolveMazeGreedyMazeWithDeadEndShouldHaveSixExploredTiles(self):
+        maze = Maze('mazes/maze_with_dead_end.txt', GreedyFrontier())
+        maze._solve_maze()
+        expected_maze = [
+            ['#', '#', '#', '#', '#'],
+            ['#', ' ', '#', 'B', '#'],
+            ['#', ' ', '#', 'O', '#'],
+            ['#', ' ', 'O', 'O', '#'],
+            ['#', '#', 'O', '#', '#'],
+            ['#', '#', 'O', '#', '#'],
+            ['#', '#', 'A', '#', '#'],
+            ['#', '#', '#', '#', '#']
+        ]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(6, maze._number_explored_tiles)
+
+    def testSolveMazeGreedyMazeWithMultipleSolutionsShouldHaveFiveExploredTiles(self):
+        maze = Maze('mazes/maze_with_multiple_solutions.txt', GreedyFrontier())
+        maze._solve_maze()
+        expected_maze = [
+            ['#', '#', '#', '#', '#'],
+            ['#', ' ', ' ', ' ', '#'],
+            ['#', ' ', '#', 'B', '#'],
+            ['#', ' ', '#', 'O', '#'],
+            ['#', ' ', 'O', 'O', '#'],
+            ['#', '#', 'O', '#', '#'],
+            ['#', '#', 'A', '#', '#'],
+            ['#', '#', '#', '#', '#']
+        ]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(5, maze._number_explored_tiles)
+
+    def testSolveMazeGreedyMazeWithTurnShouldHaveEightExploredTiles(self):
+        maze = Maze('mazes/maze_with_turn.txt', GreedyFrontier())
+        maze._solve_maze()
+        expected_maze = [
+            ['#', '#', '#', '#', '#'],
+            ['#', '#', '#', 'B', '#'],
+            ['#', '#', '#', 'O', '#'],
+            ['#', '#', '#', 'O', '#'],
+            ['#', 'O', 'O', 'O', '#'],
+            ['#', 'O', '#', '#', '#'],
+            ['#', 'O', '#', '#', '#'],
+            ['#', 'A', '#', '#', '#'],
+            ['#', '#', '#', '#', '#']
+        ]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(8, maze._number_explored_tiles)
+
+    def testSolveMazeGreedyMazeWithDeadEndOnRightShouldHaveSixExploredTiles(self):
+        maze = Maze('mazes/maze_with_dead_end_on_right.txt', GreedyFrontier())
+        maze._solve_maze()
+        expected_maze = [
+            ['#', '#','#', '#', '#'],
+            ['#', 'B','#', ' ', '#'],
+            ['#', 'O','#', ' ', '#'],
+            ['#', 'O','O', ' ', '#'],
+            ['#', '#','O', '#', '#'],
+            ['#', '#','O', '#', '#'],
+            ['#', '#','A', '#', '#'],
+            ['#', '#','#', '#', '#']
+        ]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(6, maze._number_explored_tiles)
+
+    def testSolveMazeGreedyMazeWithMultipleSolutionsGoalOnLeftShouldHaveFiveExploredTiles(self):
+        maze = Maze('mazes/maze_with_multiple_solutions_goal_on_left.txt', GreedyFrontier())
+        maze._solve_maze()
+        expected_maze = [
+            ['#', '#','#', '#', '#'],
+            ['#', ' ',' ', ' ', '#'],
+            ['#', 'B','#', ' ', '#'],
+            ['#', 'O','#', ' ', '#'],
+            ['#', 'O','O', ' ', '#'],
+            ['#', '#','O', '#', '#'],
+            ['#', '#','A', '#', '#'],
+            ['#', '#','#', '#', '#']
+        ]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(5, maze._number_explored_tiles)
+
+    def testSolveMazeGreedyShortestPossibleMazeShouldHaveOneExploredTile(self):
+        maze = Maze('mazes/shortest_possible_maze.txt', GreedyFrontier())
+        maze._solve_maze()
+        expected_maze = [
+            ['#', '#', '#'],
+            ['#', 'B', '#'],
+            ['#', 'A', '#'],
+            ['#', '#', '#']
+        ]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(1, maze._number_explored_tiles)
+
+    def testSolveMazeGreedyVeryShortMazeShouldHaveTwoExploredTiles(self):
+        maze = Maze('mazes/very_short_maze.txt', GreedyFrontier())
+        maze._solve_maze()
+        expected_maze = [
+            ['#', '#', '#'],
+            ['#', 'B', '#'],
+            ['#', 'O', '#'],
+            ['#', 'A', '#'],
+            ['#', '#', '#']
+        ]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(2, maze._number_explored_tiles)
 
 if __name__ == '__main__':
     unittest.main()

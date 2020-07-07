@@ -19,29 +19,19 @@ class FrontierTest(unittest.TestCase):
         frontier = Frontier()
         self.assertEqual([], frontier._points)
         self.assertEqual(0, len(frontier._points))
-        self.assertEqual(None, frontier._starting_point)
-        self.assertEqual(None, frontier._goal)
 
-    def testFrontierInitStartingPointIsGiven(self):
-        frontier = Frontier(starting_point=Point(3, 4))
-        self.assertEqual([], frontier._points)
-        self.assertEqual(0, len(frontier._points))
-        self.assertEqual(Point(3, 4), frontier._starting_point)
-        self.assertEqual(None, frontier._goal)
+    # Frontier.set_goal() tests
+    def testFrontierSetGoalHadNoGoalGivenGoal(self):
+        frontier = Frontier()
+        frontier.set_goal(Point(1, 2))
+        self.assertEqual(Point(1, 2), frontier._goal)
 
-    def testFrontierInitGoalIsGiven(self):
-        frontier = Frontier(goal=Point(3, 4))
-        self.assertEqual([], frontier._points)
-        self.assertEqual(0, len(frontier._points))
-        self.assertEqual(None, frontier._starting_point)
+    def testFrontierSetGoalHadGoalHasNewGoal(self):
+        frontier = Frontier()
+        frontier.set_goal(Point(1, 2))
+        self.assertEqual(Point(1, 2), frontier._goal)
+        frontier.set_goal(Point(3, 4))
         self.assertEqual(Point(3, 4), frontier._goal)
-
-    def testFrontierInitStartingPointAndGoalAreGiven(self):
-        frontier = Frontier(starting_point=Point(3, 4), goal=Point(5, 6))
-        self.assertEqual([], frontier._points)
-        self.assertEqual(0, len(frontier._points))
-        self.assertEqual(Point(3, 4), frontier._starting_point)
-        self.assertEqual(Point(5, 6), frontier._goal)
 
     # Frontier.add_point() tests
     def testFrontierAddPointToEmptyPointsListShouldBeLengthOne(self):
