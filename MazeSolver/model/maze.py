@@ -2,10 +2,15 @@ import os
 
 from PIL import Image, ImageDraw
 
-from src.factories.FrontierFactory import generate_frontier
-from src.model.Point import Point
-from src.model.frontiers.QueueFrontier import QueueFrontier
-from src.model.frontiers.StackFrontier import StackFrontier
+# from src.factories.FrontierFactory import generate_frontier
+# from src.model.Point import Point
+# from src.model.frontiers.QueueFrontier import QueueFrontier
+# from src.model.frontiers.StackFrontier import StackFrontier
+
+from MazeSolver.factories.frontier_factory import generate_frontier
+from MazeSolver.model.point import Point
+from MazeSolver.model.frontiers.queue_frontier import QueueFrontier
+from MazeSolver.model.frontiers.stack_frontier import StackFrontier
 
 STARTING_POINT = 'A'
 GOAL = 'B'
@@ -25,18 +30,18 @@ class Maze:
     Version: 1.0.0 (June 2, 2020)
     """
 
-    def __init__(self, file_name, frontier_type):
+    def __init__(self, file_name, frontier):
         """
         Constructor
         :param file_name: the text file we are reading the maze from
         :param frontier_type: a string representation of the type of frontier the user wants
         """
         self._file_name = file_name
+        self._frontier = frontier
         self._generate_maze()
         self._quit_if_maze_not_complete_rectangle()
         self._starting_point = self._find_starting_point()
         self._goal = self._find_goal()
-        self._frontier = generate_frontier(frontier_type)
         self._points_explored = []
 
     def _get_width(self):
@@ -85,12 +90,12 @@ class Maze:
         :return: the 2D array representation of the maze
         """
         # if we cannot find the file, give up
-        if not os.path.exists('../' + self._file_name):
+        if not os.path.exists(self._file_name):
             print('ERROR -- Could not find {}!'.format(self._file_name))
             exit()
 
         # open the file
-        file = open('../' + self._file_name, 'r')
+        file = open(self._file_name, 'r')
 
         # If there are incorrect number of starting or ending points, quit
         characters = file.read()
@@ -335,7 +340,7 @@ class Maze:
         :param image: the image that should be saved
         """
         file_name_without_path = self._file_name.split('/')[-1]
-        image_file_name = '../maze_images/' + file_name_without_path[:-4] + '.png'
+        image_file_name = 'maze_images/' + file_name_without_path[:-4] + '.png'
         image.save(image_file_name)
 
     def _generate_image_from_characters(self, cell_border, cell_size, draw):

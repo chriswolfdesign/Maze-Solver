@@ -1,6 +1,6 @@
 import unittest
 
-from src.model.Point import Point
+from MazeSolver.model.point import Point
 
 
 class PointTest(unittest.TestCase):

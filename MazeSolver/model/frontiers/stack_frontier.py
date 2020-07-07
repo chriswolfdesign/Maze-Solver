@@ -1,4 +1,4 @@
-from src.model.frontiers.Frontier import Frontier
+from MazeSolver.model.frontiers.frontier import Frontier
 
 
 class StackFrontier(Frontier):
