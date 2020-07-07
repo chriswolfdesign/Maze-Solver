@@ -42,6 +42,7 @@ class Maze:
         self._quit_if_maze_not_complete_rectangle()
         self._starting_point = self._find_starting_point()
         self._goal = self._find_goal()
+        self._frontier.set_goal(self._goal)
         self._points_explored = []
 
     def _get_width(self):

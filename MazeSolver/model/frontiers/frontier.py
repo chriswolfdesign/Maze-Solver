@@ -8,15 +8,17 @@ class Frontier:
     Author: Chris Wolf
     Version: 1.0.0 (June 25, 2020)
     """
-    def __init__(self, starting_point=None, goal=None):
+    def __init__(self):
         """
         Constructor
-        :param starting_point: The starting point, if it is relevant to the algorithm
-                               for this frontier
-        :param goal: The goal, if it is relevant to the algorithm for this frontier
         """
         self._points = []
-        self._starting_point = starting_point
+
+    def set_goal(self, goal):
+        """
+        Setter for the goal field
+        :param goal: the goal for the frontier to reach
+        """
         self._goal = goal
 
     def add_point(self, point):
