@@ -2,11 +2,6 @@ import os
 
 from PIL import Image, ImageDraw
 
-# from src.factories.FrontierFactory import generate_frontier
-# from src.model.Point import Point
-# from src.model.frontiers.QueueFrontier import QueueFrontier
-# from src.model.frontiers.StackFrontier import StackFrontier
-
 from MazeSolver.factories.frontier_factory import generate_frontier
 from MazeSolver.model.point import Point
 from MazeSolver.model.frontiers.queue_frontier import QueueFrontier
