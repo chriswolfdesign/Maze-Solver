@@ -1,7 +1,7 @@
 import unittest
 
-from src.model.Point import Point
-from src.model.frontiers.Frontier import Frontier
+from MazeSolver.model.point import Point
+from MazeSolver.model.frontiers.frontier import Frontier
 
 
 class FrontierTest(unittest.TestCase):
