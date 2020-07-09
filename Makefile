@@ -3,3 +3,6 @@ run:
 
 test:
 	green -vvv
+
+install:
+	pip install -r requirements.txt
