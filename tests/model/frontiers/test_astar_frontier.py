@@ -4,6 +4,14 @@ from MazeSolver.model.frontiers.astar_frontier import AStarFrontier
 from MazeSolver.model.point import Point
 
 class AStarFrontierTest(unittest.TestCase):
+    """
+    test_astar_frontier.py
+
+    Unit testing for astar_frontier.py
+
+    Author: Chris Wolf
+    Version: 1.0.0 (July 9, 2020)
+    """
     # AStarFrontier.remove_point() tests
     def testRemovePointEmptyPointListShouldBeNone(self):
         frontier = AStarFrontier()

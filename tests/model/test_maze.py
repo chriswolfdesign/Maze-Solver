@@ -5,6 +5,7 @@ from MazeSolver.model.point import Point
 from MazeSolver.model.frontiers.queue_frontier import QueueFrontier
 from MazeSolver.model.frontiers.stack_frontier import StackFrontier
 from MazeSolver.model.frontiers.greedy_frontier import GreedyFrontier
+from MazeSolver.model.frontiers.astar_frontier import AStarFrontier
 
 
 class MazeTest(unittest.TestCase):
@@ -813,6 +814,130 @@ class MazeTest(unittest.TestCase):
         ]
         self.assertEqual(expected_maze, maze._maze)
         self.assertEqual(2, maze._number_explored_tiles)
+
+    # Maze._solve_maze tests (AStar)
+    def testSolveMazeAStarLinearMazeShouldHaveFourExploredTiles(self):
+        maze = Maze('mazes/linear_maze.txt', AStarFrontier())
+        maze._solve_maze()
+        expected_maze = [
+            ['#', '#', '#'],
+            ['#', 'B', '#'],
+            ['#', 'O', '#'],
+            ['#', 'O', '#'],
+            ['#', 'O', '#'],
+            ['#', 'A', '#'],
+            ['#', '#', '#']
+        ]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(4, maze._number_explored_tiles)
+
+    def testSolveMazeAStarMazeWithCycleShouldHaveTwelveExploredTiles(self):
+        maze = Maze('mazes/maze_with_cycle.txt', AStarFrontier())
+        maze._solve_maze()
+        expected_maze = [
+            ['#', '#', '#', '#', '#'],
+            ['#', '#', 'B', '#', '#'],
+            ['#', '#', 'O', '#', '#'],
+            ['#', 'O', 'O', 'X', '#'],
+            ['#', 'O', '#', 'X', '#'],
+            ['#', 'O', 'O', 'X', '#'],
+            ['#', '#', 'O', '#', '#'],
+            ['#', '#', 'A', '#', '#'],
+            ['#', '#', '#', '#', '#']
+        ]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(12, maze._number_explored_tiles)
+
+    def testSolveMazeAStarMazeWithDeadEndShouldHaveSixExploredTiles(self):
+        maze = Maze('mazes/maze_with_dead_end.txt', AStarFrontier())
+        maze._solve_maze()
+        expected_maze = [
+            ['#', '#', '#', '#', '#'],
+            ['#', ' ', '#', 'B', '#'],
+            ['#', ' ', '#', 'O', '#'],
+            ['#', ' ', 'O', 'O', '#'],
+            ['#', '#', 'O', '#', '#'],
+            ['#', '#', 'O', '#', '#'],
+            ['#', '#', 'A', '#', '#'],
+            ['#', '#', '#', '#', '#']
+        ]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(6, maze._number_explored_tiles)
+
+    def testSolveMazeAStarMazeWithTurnShouldHaveEightExploredTiles(self):
+        maze = Maze('mazes/maze_with_turn.txt', AStarFrontier())
+        maze._solve_maze()
+        expected_maze = [
+            ['#', '#', '#', '#', '#'],
+            ['#', '#', '#', 'B', '#'],
+            ['#', '#', '#', 'O', '#'],
+            ['#', '#', '#', 'O', '#'],
+            ['#', 'O', 'O', 'O', '#'],
+            ['#', 'O', '#', '#', '#'],
+            ['#', 'O', '#', '#', '#'],
+            ['#', 'A', '#', '#', '#'],
+            ['#', '#', '#', '#', '#']
+        ]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(8, maze._number_explored_tiles)
+
+    def testSolveMazeAStarMazeWithDeadEndOnRightShouldHaveSixExploredTiles(self):
+        maze = Maze('mazes/maze_with_dead_end_on_right.txt', AStarFrontier())
+        maze._solve_maze()
+        expected_maze = [
+            ['#', '#', '#', '#', '#'],
+            ['#', 'B', '#', ' ', '#'],
+            ['#', 'O', '#', ' ', '#'],
+            ['#', 'O', 'O', ' ', '#'],
+            ['#', '#', 'O', '#', '#'],
+            ['#', '#', 'O', '#', '#'],
+            ['#', '#', 'A', '#', '#'],
+            ['#', '#', '#', '#', '#']
+        ]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(6, maze._number_explored_tiles)
+
+    def testSolveMazeAStarMazeWithMultipleSolutionsGoalOnLeftShouldHaveFiveExploredTiles(self):
+        maze = Maze('mazes/maze_with_multiple_solutions_goal_on_left.txt', AStarFrontier())
+        maze._solve_maze()
+        expected_maze = [
+            ['#', '#', '#', '#', '#'],
+            ['#', ' ', ' ', ' ', '#'],
+            ['#', 'B', '#', ' ', '#'],
+            ['#', 'O', '#', ' ', '#'],
+            ['#', 'O', 'O', ' ', '#'],
+            ['#', '#', 'O', '#', '#'],
+            ['#', '#', 'A', '#', '#'],
+            ['#', '#', '#', '#', '#']
+        ]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(5, maze._number_explored_tiles)
+
+    def testSolveMazeAStarShortestPossibleMazeShouldBeOneExploredTile(self):
+        maze = Maze('mazes/shortest_possible_maze.txt', AStarFrontier())
+        maze._solve_maze()
+        expected_maze = [
+            ['#', '#', '#'],
+            ['#', 'B', '#'],
+            ['#', 'A', '#'],
+            ['#', '#', '#']
+        ]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(1, maze._number_explored_tiles)
+
+    def testSolveMazeAStarVeryShortMazeShouldBeTwoExploredTiles(self):
+        maze = Maze('mazes/very_short_maze.txt', AStarFrontier())
+        maze._solve_maze()
+        expected_maze = [
+            ['#', '#', '#'],
+            ['#', 'B', '#'],
+            ['#', 'O', '#'],
+            ['#', 'A', '#'],
+            ['#', '#', '#']
+        ]
+        self.assertEqual(expected_maze, maze._maze)
+        self.assertEqual(2, maze._number_explored_tiles)
+
 
 if __name__ == '__main__':
     unittest.main()
