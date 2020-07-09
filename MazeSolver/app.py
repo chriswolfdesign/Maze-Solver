@@ -49,6 +49,7 @@ def select_frontier():
         print('\t 1: StackFrontier')
         print('\t 2: QueueFrontier')
         print('\t 3: GreedyFrontier')
+        print('\t 4: AStarFrontier')
         frontier_choice = int(input('Enter the number for the frontier you would like: '))
 
     return generate_frontier(frontier_choice)
