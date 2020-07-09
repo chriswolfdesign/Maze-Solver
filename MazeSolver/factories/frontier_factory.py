@@ -1,6 +1,7 @@
 from MazeSolver.model.frontiers.queue_frontier import QueueFrontier
 from MazeSolver.model.frontiers.stack_frontier import StackFrontier
 from MazeSolver.model.frontiers.greedy_frontier import GreedyFrontier
+from MazeSolver.model.frontiers.astar_frontier import AStarFrontier
 from MazeSolver.enums.frontier_choices import *
 
 """
@@ -20,6 +21,8 @@ def generate_frontier(frontier_choice):
         return QueueFrontier()
     elif frontier_choice == GREEDY_FRONTIER:
         return GreedyFrontier()
+    elif frontier_choice == ASTAR_FRONTIER:
+        return AStarFrontier()
     else:
         print('ERROR -- Invalid frontier!')
         exit()
