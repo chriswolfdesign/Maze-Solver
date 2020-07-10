@@ -2,7 +2,7 @@ run:
 	python3 -m MazeSolver
 
 test:
-	python3 -m unittest discover tests/model
+	green -vvv
 
 install:
 	pip install -r requirements.txt
