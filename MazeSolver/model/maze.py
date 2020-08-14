@@ -246,7 +246,7 @@ class Maze:
         self._quit_if_no_valid_maze()
 
         cell_size = 50
-        cell_border = 2
+        cell_border = 1
 
         image = Image.new('RGBA', (self._get_width() * cell_size, self._get_height() * cell_size),
                           'black')
