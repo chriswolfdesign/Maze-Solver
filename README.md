@@ -5,6 +5,11 @@ searching algorithms to solve it.
 
 Contact: chriswolfdesign@gmail.com
 
+## Credits
+
+I borrowed the visualization code that generates the PNG files from Harvard's Intro to Machine Learning
+course.  However, the algorithms, CLI, and logic was written by me.
+
 ## Usage instructions
 
 It is recommended to use a virtual environment of your choosing when working with this application.
